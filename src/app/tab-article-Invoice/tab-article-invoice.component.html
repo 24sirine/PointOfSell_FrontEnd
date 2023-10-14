@@ -1,0 +1,647 @@
+
+<div style="display: flex;" >
+   
+    <span style="flex :2 ; ">
+        <div style="         max-height: 269px;
+        overflow-y: auto; overflow-x:hidden ;    " >
+        <h2 style="    font-weight: 900;
+        color: #dc3545;
+        margin-bottom: -3px;
+        margin-top: 10px;
+        margin-left: 150px;">N° de la commande : {{ numCommande }}</h2>
+        
+<table class="table table-striped style" >
+    <thead>
+      <tr>
+        <th scope="col">N° ligne</th>
+        <th scope="col">N° article</th>
+        <th scope="col">Description</th>
+        <th scope="col">Quantité</th>
+        <th scope="col">Prix unitaire</th>
+        <th scope="col">Remise</th>
+        <th scope="col">Montant</th>
+
+      </tr>
+    </thead>
+    
+    <tbody >
+
+        
+          <tr *ngFor="let article of articles.slice().reverse(); let i = index">
+            <th scope="row">{{ articles.length - i  }}</th>
+            <td>{{article.code}}</td>
+            <td>{{article.description}}</td>
+            <td>{{article.qte}}</td>
+            <td>{{ article.prixUnitaire }} DT</td>
+           <td>{{article.remise}}%</td>
+           <td>{{article.montant}} DT</td>
+           
+          </tr>
+
+       
+      
+    </tbody>
+
+   
+  </table>
+        </div>
+        <div class="style1"><span>Nombre d'articles : {{ articles.length }}</span></div>
+
+        <div class="alert alert-success" *ngIf="showAlert" role="alert" style="margin-left: 224px;
+        margin-top: 39px;
+        height: 61px;
+        width: 354px;">
+            <h4  style ="font-size: 18px;
+            margin-left: 21px; " class="alert-heading">Commande Validée avec succès !</h4>
+           
+           
+        
+          </div>
+          <div class="alert alert-success" *ngIf="showAlertSuspendu" role="alert" style="margin-left: 224px;
+        margin-top: 39px;
+        height: 61px;
+        width: 354px;">
+            <h4  style ="font-size: 18px;
+            margin-left: 9px; " class="alert-heading">Commande Suspendu avec succès !</h4>
+           
+           
+        
+          </div>
+</span>
+
+
+
+
+<span style ="flex:1; ">
+  <table class="table table-striped"style="    margin-right: -55px px;
+      margin-left: 39px;">
+    <thead>
+      <tr>
+
+        <td style="width: 16%;">
+        <p>
+            <strong>Total : </strong>
+        </p>
+        <p>
+            <strong>Remise : </strong>
+        </p>
+        <p>
+            <strong>Paiement : </strong>
+        </p>
+        <p>
+            <strong>TVA : </strong>
+        </p>
+        <p>
+            <strong>Timbre : </strong>
+        </p>
+        <p>
+            <strong>Rendu : </strong>
+        </p>
+        </td>
+        <td style="width: 8%;">
+        <p>
+            <strong>{{somme}}</strong>
+        </p>
+        <p>
+            <strong> 0</strong>
+        </p>
+        <p>
+            <strong>{{montantPayee}}</strong>
+        </p>
+        <p>
+            <strong>0</strong>
+        </p>
+        <p>
+            <strong> 0</strong>
+        </p>
+        <p>
+            <strong>{{rendu}}</strong>
+        </p>
+       
+    </tr>
+   
+</thead>
+</table>
+<button class="btn btn-2 col-sm-3" type="button" style="
+margin-left: 70px;  height: 63px; width: 166px; background-color: #bf0e1f;" (click)="ValiderCommande()">Valider la commande</button>
+</span>
+
+<span style="margin-top: 10px;
+margin-left: 119px;">
+    <div class="container" style ="    margin-left: -28px;">
+        <div class="row">
+          <div class="col-md-4">
+            <span>
+              <button type="button" class="btn btn-primary mb-2" (click)="removeLastArticle()">Annuler Transaction</button>
+              <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#cmdOuverte" >Commandes ouvertes</button>
+              <button type="button" class="btn btn-primary mb-2" >Points De Stock</button>
+              <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#cmdValide" >Commandes Validées</button>
+              <button type="button" class="btn btn-primary mb-2" (click)="suspendreCommande()">Suspendre ticket</button>
+            
+            </span>
+          </div>
+          <div class="col-md-4">
+            <span>
+              <button type="button" class="btn btn-primary mb-2"(click)="removeAllArticles()">Annuler tous les lignes</button>
+              <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#ModaladdClient">Ajouter Client</button>
+              <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#ModalListeArticle" >Liste Des Articles</button>
+              <button type="button" class="btn btn-primary mb-2"data-bs-toggle="modal" data-bs-target="#ModalListeClient">Liste Des Clients</button>
+              <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#cmdSuspendu" >Les tickets Suspendu</button>
+            </span>
+          </div>
+          <div class="col-md-4">
+            <span>
+              <button type="button" class="btn btn-primary mb-2"(click)="resetPage()">Nouv.Ticket</button>
+              <button type="button" class="btn btn-primary mb-2"  data-bs-toggle="modal" data-bs-target="#Paiement">Paiement clients</button>
+              <button type="button" class="btn btn-primary mb-2"data-bs-toggle="modal" data-bs-target="#ModalListeMagasins">Magasins</button>
+              <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#cloture">cloture Caisse</button>
+              <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#impression">Imprimer Ticket</button>
+            </span>
+          </div>
+        </div>
+      </div>
+</span>
+<app-view-clients></app-view-clients>
+<app-view-articles></app-view-articles>
+</div>
+
+
+
+                                            <!--Sidebar-->
+
+<nav class="main-menu">
+            <ul>
+              <li>
+                <a href="#">
+                   <i class="fa fa-info fa-2x"></i>
+                    <span class="nav-text">
+                      
+                    </span>
+                </a>
+            </li>
+                <li>
+                    <a href="https://jbfarrow.com">
+                        <i class="fa fa-home fa-2x"></i>
+                        <span class="nav-text">
+                          
+                        </span>
+                    </a>
+                  
+                </li>
+                <li class="has-subnav">
+                    <a href="#">
+                        <i class="fa fa-globe fa-2x"></i>
+                        <span class="nav-text">
+                           
+                        </span>
+                    </a>
+                    
+                </li>
+                <li class="has-subnav">
+                    <a href="#">
+                       <i class="fa fa-comments fa-2x"></i>
+                        <span class="nav-text">
+                            
+                        </span>
+                    </a>
+                    
+                </li>
+                <li class="has-subnav">
+                    <a href="#">
+                       <i class="fa fa-camera-retro fa-2x"></i>
+                        <span class="nav-text">
+                            
+                        </span>
+                    </a>
+                   
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-film fa-2x"></i>
+                        <span class="nav-text">
+                           
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-book fa-2x"></i>
+                        <span class="nav-text">
+                          
+                        </span>
+                    </a>
+                </li>
+                <li>
+                   <a href="#">
+                       <i class="fa fa-cogs fa-2x"></i>
+                        <span class="nav-text">
+                            
+                        </span>
+                    </a>
+                </li>
+                <li>
+                   <a href="#">
+                        <i class="fa fa-map-marker fa-2x"></i>
+                        <span class="nav-text">
+                           
+                        </span>
+                    </a>
+                </li>
+               
+            </ul>
+
+            <ul class="logout">
+                <li>
+                   <a href="#">
+                         <i class="fa fa-power-off fa-2x"></i>
+                        <span class="nav-text">
+                            Logout
+                        </span>
+                    </a>
+                </li>  
+            </ul>
+        </nav>
+ <app-add-clients></app-add-clients> 
+
+ <!-- Modal  commandes Validées -->
+<div class="modal fade" id="cmdValide" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content ">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel" style=" margin-left: 89px;">Liste des Commandes Validées</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body , popup1">
+          <div class="table-wrapper">
+             
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>id_commande</th>
+                        <th>date</th>
+                        <th>Moyen Paiement</th>
+                        <th>Client</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cmd of commandesDetailsValide">
+                      
+                        <td>{{cmd.id_commande}}</td>
+                        <td>{{cmd.datecmd}}</td>
+                        <td>{{cmd.moyenPaiement}}</td>
+                        <td>Passager</td>
+                        
+                        <td>
+
+                            
+                        </td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+    
+        </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+   <!-- Modal  commandes Ouvertes -->
+<div class="modal fade" id="cmdOuverte" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content ">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel"    style=" margin-left: 89px;"
+          >Liste des Commandes Ouvertes</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body , popup1">
+          <div class="table-wrapper">
+             
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>id_commande</th>
+                        <th>date</th>
+                        <th>Moyen Paiement</th>
+                        <th>Client</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                   <tr *ngFor="let cmd of commandesDetailsOuvertes">
+                      
+                        <td>{{cmd.id_commande}}</td>
+                        <td>{{cmd.datecmd}}</td>
+                        <td>{{cmd.moyenPaiement}}</td>
+                        <td>Passager</td>
+                        
+                        <td>
+
+                            
+                        </td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+    
+        </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ <!-- Modal  commandes Suspendu -->
+ <div class="modal fade" id="cmdSuspendu" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content ">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel" style=" margin-left: 89px;">Liste des Commandes Suspendus</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body , popup1">
+          <div class="table-wrapper">
+             
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>id_commande</th>
+                        <th>date</th>
+                        <th>Moyen Paiement</th>
+                        <th>client</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cmd of commandesDetailsSuspendu">
+                      
+                        <td>{{cmd.id_commande}}</td>
+                        <td>{{cmd.datecmd}}</td>
+                        <td>{{cmd.moyenPaiement}}</td>
+                        <td>Passager</td>
+                        
+                        <td>
+
+                            
+                        </td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+    
+        </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal  Paiement -->
+ <div class="modal fade" id="Paiement" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content " style="height: 536px;
+      width: 1341px;
+      margin-left: -388px;">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel" style="margin-left: 484px;">Les méthodes de paiement</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+
+        <div class="modal-body ">
+            <div class="images-selector">
+                <input type="radio" id="cash" name="image" value="cash" (click)="onImageClicked('cash')">
+                <label for="cash" class="img-card img1"></label>
+                <input type="radio" id="cheque" name="image" value="cheque" (click)="onImageClicked('cheque')">
+                <label for="cheque" class="img-card img2"></label>
+                <input type="radio" id="mastercard" name="image" value="mastercard"  (click)="onImageClicked('mastercard')">
+                <label for="mastercard" class="img-card img3"></label>
+                <input type="radio" id="visa" name="image" value="visa"  (click)="onImageClicked('visa')" >
+                <label for="visa" class="img-card img4"></label>
+                <input type="radio" id="edinards" name="image" value="edinards"  (click)="onImageClicked('edinards')">
+                <label for="edinards" class="img-card img5"></label>
+              </div>
+
+
+              <div  *ngIf="cashSelected" >
+                <div class="card">
+                <div>	
+                         <div class="py-2  px-3">
+                            <div class="second pl-2 d-flex py-2">
+                          
+                            <div class="border-left pl-2"><div class="d-flex"><input  [(ngModel)]="montantPayee" type="text" name="text" class="form-control ml-1" ><span class="dinards">DT</span></div></div>
+                             </div> 
+                        </div>	
+                        <button type="button" class="btn btn-primary button"  style="height: 47px;margin-left: 62px;width: 108px;"(click)="clickCash()">Payer</button>
+                        <div class="alert alert-success" *ngIf="paiementSuccess" role="alert" style="margin-left: 461px;
+                        margin-top: -87px;
+                        height: 61px;
+                        width: 354px;">
+                            <h4  style ="font-size: 18px;
+                            margin-left: 21px; " class="alert-heading">Paiement effectué avec succées !</h4>
+                           
+                           
+                        
+                          </div>
+                        <div class="alert alert-success" *ngIf="montantinsuffisant" role="alert" style="margin-left: 461px;
+                        margin-top: -87px;
+                        height: 61px;
+                        width: 354px; --bs-alert-bg: #dd2828;
+    --bs-alert-border-color: #320602;">
+                            <h4  style ="font-size: 18px;
+                                margin-left: 56px;; " class="alert-heading">montant insuffisant !</h4>
+                           
+                           
+                        
+                          </div>
+
+                    </div>
+                </div>
+            
+            </div>
+        </div>
+
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+ <!-- Modal  Liste des Magasins -->
+ <div class="modal fade" id="ModalListeMagasins" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content " style="    height: 631px;
+      margin-left: -231px;
+      width: 1014px;">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel" style="margin-left: 385px;">Liste des Magasins</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body ">
+          <div class="table-wrapper">
+             
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>code</th>
+                        <th>Nom</th>
+                        <th>Code pays/Région</th>
+                        <th>Adresse</th>
+                        <th>Ville</th>
+                        <th>Code postal</th>
+                        <th>Numero</th>
+                    </tr>
+                </thead>
+                <tbody>
+                 <tr *ngFor="let magasin of magasinDetails">
+                      
+                        <td>{{magasin.code}}</td>
+                        <td>{{magasin.name}}</td>
+                        <td>{{magasin.codePays}}</td>
+                        <td>{{magasin.adresse}}</td>
+                        <td>{{magasin.ville}}</td>
+                        <td>{{magasin.codePostal}}</td>
+                        <td>{{magasin.tel}}</td>
+                       
+                        
+                    </tr> 
+                    
+                </tbody>
+            </table>  
+        </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+ <!-- Modal  Impression ticket -->
+ <div class="modal fade" id="impression" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content " >
+        <div class="modal-header">
+            <a href="javascript:;" onclick="window.print()" class="btn btn-sm btn-white m-b-10 p-l-5"><i class="fa fa-print t-plus-1 fa-fw fa-lg"></i> Print</a>
+            <div class="invoice-ribbon"><div class="ribbon-inner">PAID</div></div>
+          <h1 class="modal-title fs-5" id="exampleModalLabel" style="margin-right: 191px;">Ticket</h1>
+
+        </div>
+        <div class="modal-body ">
+            <div class="container " >
+                <div class="row ">
+                    <div class="well col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                             
+                                
+                                <address style="width: 216px;">
+                                    <strong>CRONUS France S.A.</strong>
+                                    <br>
+                                    5 av. Pierre de Coubertin B.P. 155
+                                    <br>
+                                    Paris , 75008
+                                    <br>
+                                    <abbr title="Phone">N°:</abbr> 01 66 66 66 66
+                                </address>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 text-right" style="width: 155px; margin-top: -99px; margin-left: 306px;">
+                                <p>
+                                    <em>Date: {{dateCmd}}</em>
+                                </p>
+                                <p>
+                                    <em>Ticket Numéro #:  {{numCommande}} </em>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row" style="    width: 24pc;
+                        margin-left: 25px;">
+                         
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Produit</th>
+                                        <th>quantité</th>
+                                        <th class="text-center">Prix unitaire</th>
+                                        <th class="text-center">Remise</th>
+                                        <th class="text-center">Total</th>
+                                    </tr>
+                                </thead>
+
+                           
+                                <tbody>
+                                    <tr *ngFor="let article of articles">
+                                        <td  class="col-md-9"><em>{{article.description}}</em></td>
+                                        <td class="col-md-1">{{article.qte}}</td>
+                                        <td class="col-md-1 text-center">{{ article.prixUnitaire }} DT</td>
+                                       <td class="col-md-1 text-center" >{{article.remise}}%</td>
+                                       <td class="col-md-1 text-center">{{article.montant}} DT</td>
+                                       
+                                    </tr>
+                                 
+                                   
+                                    <tr>
+                                        <td>   </td>
+                                        <td>   </td>
+                                        <td></td>
+                                        <td class="text-right"><h4><strong>Total: </strong></h4></td>
+                                        <td class="text-center text-danger"><h4><strong>{{somme}}</strong></h4></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        
+                        </div>
+                    </div>
+                </div>
+        </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Modal  Cloture Caisse -->
+ <div class="modal fade" id="cloture" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content " >
+        <div class="modal-header">
+           
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Cloture Caisse</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body ">
+            <div class="js-container container1" style="top:0px !important;"></div>
+
+  <div style="text-align:center;margin-top:112px;position:  fixed;width:100%;top:0px;left:0px;">
+    <div class="checkmark-circle">
+      <div class="background"></div>
+      <div class="checkmark draw"></div>
+    </div>
+    <h1>Mes Félicitations!</h1>
+    <h1>Votre gain d'aujourd'hui est : <span style="color: #bf0e1f; font-weight: bold;">{{gain}} Dt</span> </h1>
+  </div>  
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

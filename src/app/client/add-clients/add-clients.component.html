@@ -1,0 +1,129 @@
+
+                        
+                        
+                              
+                                  <div class="modal fade" id="ModaladdClient" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h1 class="modal-title fs-5" id="exampleModalLabel">Ajouter un Client</h1>
+                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                          <mat-horizontal-stepper [linear]="isLinear" #stepper>
+                                            <mat-step [stepControl]="firstFormGroup">
+                                              <form [formGroup]="firstFormGroup">
+                                                <ng-template matStepLabel>Etape 1</ng-template>
+                                                <mat-form-field class="inputstyle">
+                                                  <mat-label>Nom du client</mat-label>
+                                                  <input matInput placeholder="Name" formControlName="name" required pattern="[A-Za-z\s]*">
+                                                  <mat-error *ngIf="firstFormGroup?.get('name')?.hasError('pattern')">Le nom est formé par des lettres</mat-error>
+                                                </mat-form-field>
+                                                <br/>
+                                                <mat-form-field class="inputstyle">
+                                                  <mat-label>Mail</mat-label>
+                                                  <input type="email" matInput placeholder="Mail" formControlName="mail" required email>
+                                                  <mat-error *ngIf="firstFormGroup?.get('mail')?.hasError('email')">Format de l'e-mail invalide</mat-error>
+                                                </mat-form-field>
+                                                <br/>
+                                                <mat-form-field class="inputstyle">
+                                                  <mat-label>N° de Téléphone</mat-label>
+                                                  <input  matInput placeholder="N° de Téléphone" formControlName="tel" required pattern="[0-9]{8}">
+                                                  <mat-error *ngIf="firstFormGroup?.get('tel')?.hasError('pattern')">Format du numéro de téléphone invalide (8 chiffres)</mat-error>
+                                                </mat-form-field>
+                                                <br/>
+                                                <mat-form-field class="inputstyle">
+                                                  <mat-label>Url image</mat-label>
+                                                  <input  matInput placeholder="Url de l'image de client" formControlName="imgClient" >
+                                                  
+                                                </mat-form-field>
+                                                <br/>
+                                                <div>
+                                                  <button mat-button matStepperNext class="button1style">Suivant</button>
+                                                </div>
+                                              </form>
+                                            </mat-step>
+                                            <mat-step [stepControl]="secondFormGroup">
+                                              <form [formGroup]="secondFormGroup">
+                                                <ng-template matStepLabel>Etape 2</ng-template>
+                                                <mat-form-field class="inputstyle">
+                                                  <mat-label>région</mat-label>
+                                                  <select matNativeControl formControlName="region" required>
+                                                      <option value="" disabled selected>Sélectionnez une région</option>
+                                                      <option value="Béja">Béja</option>
+                                                      <option value="Ben_Arous">Ben Arous</option>
+                                                      <option value="Bizerte">Bizerte</option>
+                                                      <option value="Gabés">Gabés</option>
+                                                      <option value="Gafsa">Gafsa</option>
+                                                      <option value="Jendouba">Jendouba</option>
+                                                      <option value="Kairaouan">Kairaouan</option>
+                                                      <option value="Kasserine">Kasserine</option>
+                                                      <option value="Kébili">Kébili</option>
+                                                      <option value="kef">Le kef</option>
+                                                      <option value="Mahdia">Mahdia</option>
+                                                      <option value="manouba">La manouba</option>
+                                                      <option value="Médenine">Médenine</option>
+                                                      <option value="Monastir">Monastir</option>
+                                                      <option value="Nabeul">Nabeul</option>
+                                                      <option value="Sfax">Sfax</option>
+                                                      <option value="Sidi_Bouzid">Sidi Bouzid</option>
+                                                      <option value="Siliana">Siliana</option>
+                                                      <option value="Sousse">Sousse</option>
+                                                      <option value="Tataouine">Tataouine</option>
+                                                      <option value="Tozeur">Tozeur</option>
+                                                      <option value="Tunis">Tunis</option>
+                                                      <option value="Zaghouan">Zaghouan</option>
+                                                      <option value="Ariana">Ariana</option>
+                                                    </select>
+                                                  
+                                                </mat-form-field>
+                                                <br/>
+                                                <mat-form-field class="inputstyle">
+                                                  <mat-label>adresse </mat-label>
+                                                  <input matInput placeholder="adresse" formControlName="adresse" required>
+                                                </mat-form-field>
+                                                <br/>
+                                                <mat-form-field class="inputstyle">
+                                                  <mat-label>Ville</mat-label>
+                                                  <input matInput placeholder="Ville" formControlName="ville" required>
+                                                </mat-form-field>
+                                                <br/>
+                                                <mat-form-field class="inputstyle">
+                                                  <mat-label>Code postal</mat-label>
+                                                  <input matInput placeholder="Code postal" formControlName="codePostal" required pattern="[0-9]{4}">
+                                                  <mat-error *ngIf="secondFormGroup?.get('codePostal')?.hasError('pattern')">Code postal invalide (4 chiffres)</mat-error>
+                                                </mat-form-field>
+                                                <br/>
+                                                <div>
+                                                  <button mat-button matStepperPrevious class="button3style">Précédent</button>
+                                                  <button mat-button matStepperNext class="button2style">Suivant</button>
+                                                </div>
+                                              </form>
+                                            </mat-step>
+                                            <mat-step>
+                                              <ng-template matStepLabel>Validation</ng-template>
+                                              <mat-list>
+                                               <mat-list-item> <strong>Name:</strong> {{ this.firstFormGroup.value.name }}</mat-list-item>
+                                               <mat-list-item> <strong>Mail:</strong> {{ this.firstFormGroup.value.mail }}</mat-list-item>
+                                               <mat-list-item> <strong>N° de téléphone:</strong> {{ this.firstFormGroup.value.tel}}</mat-list-item>
+                                               <mat-list-item> <strong>Région:</strong> {{ this.secondFormGroup.value.region}}</mat-list-item>
+                                               <mat-list-item> <strong>Adresse:</strong> {{ this.secondFormGroup.value.adresse }}</mat-list-item>
+                                               <mat-list-item> <strong>Ville:</strong> {{ this.secondFormGroup.value.ville }}</mat-list-item>
+                                               <mat-list-item> <strong>code Postal:</strong> {{ this.secondFormGroup.value.codePostal }}</mat-list-item>
+                                              </mat-list>
+                                              <div>
+                                                <button mat-button matStepperPrevious class="button4style">Précédent</button>
+                                                <button mat-button (click)="stepper.reset()" class="button5style">réinitialiser</button>
+                                                <button mat-button (click)="submit()" data-bs-dismiss="modal" class="button6style">valider</button>
+                                              </div>
+                                            </mat-step>
+                                          </mat-horizontal-stepper>
+                                            
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                       
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>

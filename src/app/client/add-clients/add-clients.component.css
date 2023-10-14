@@ -1,0 +1,44 @@
+/*style des bouttons dans le pop up */
+
+.inputstyle{
+    margin-left: 84px;
+    width: 272px;}
+  .button1style{
+    margin-left: 180px;
+    background-color: #3f51b5;}
+    .button2style{
+      margin-left: 4px;
+      background-color: #3f51b5;}
+      .button3style{
+          margin-left: 123px;
+          background-color: #3f51b5;}
+  .button4style
+  {
+      margin-left: 79px;
+      background-color: #3f51b5;
+  }
+  .button5style
+  {
+      margin-left: 2px;
+      background-color: #3f51b5;
+  }
+  .button6style
+  { margin-left: 2px;
+      background-color: yellowgreen;
+  }
+  .modal-title{
+      color: #dc3545;
+      font-weight: 600;
+      margin-bottom: 1px;
+  
+      margin-left: 160px;
+  }
+  
+  .ajouterClient{
+  
+      border: #0a3964;
+                              background-color: #0a3964; 
+    }
+    button:hover {
+      background-color:#4a70b7; 
+      color: #fff; }

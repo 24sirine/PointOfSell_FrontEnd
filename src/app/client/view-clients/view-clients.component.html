@@ -1,0 +1,209 @@
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="ModalListeClient" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content , popup1">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Liste des clients</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body , popup1">
+        <div class="table-wrapper">
+           
+          <table class="table table-striped table-hover">
+              <thead>
+                  <tr>
+                      <th>#</th>
+                      <th>Nom client</th>
+          <th>Mail</th>
+                      <th>Téléphone</th>
+                      <th>Région</th>
+                      <th>ville</th>
+                      <th>Adresse</th>
+                      <th>Code postal</th>
+                      <th></th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let client of clientsDetails">
+                    
+                      <td>{{client.id}}</td>
+                      <td>{{client.name}}</td>
+                      <td>{{client.mail}}</td>
+                      <td>{{client.tel}}</td>
+                      <td>{{client.region}}</td>
+                      <td>{{client.ville}}</td>
+                      <td>{{client.adresse}}</td>
+                      <td>{{client.codePostal}}</td>
+                      <td>
+                          <a  class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" data-bs-toggle="modal" (click)="editclient(client)" data-bs-target="#ModalEdit" title="Edit" >&#xE254;</i></a>
+                          <a  class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete" (click)="openPopUpDelete(client)">&#xE872;</i></a>
+                          
+                      </td>
+                  </tr>
+                  
+              </tbody>
+          </table>
+    <div class="clearfix">
+             
+              <ul class="pagination">
+                  <li class="page-item disabled"><a href="#">Previous</a></li>
+                  <li class="page-item"><a href="#" class="page-link">1</a></li>
+                  <li class="page-item"><a href="#" class="page-link">2</a></li>
+                  <li class="page-item active"><a href="#" class="page-link">3</a></li>
+                  <li class="page-item"><a href="#" class="page-link">4</a></li>
+                  <li class="page-item"><a href="#" class="page-link">5</a></li>
+                  <li class="page-item"><a href="#" class="page-link">Next</a></li>
+              </ul>
+          </div>
+      </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+  <!--pop up delete-->
+  
+
+  <div class="modal" id="myModalDelete">
+    <div class="modal-dialog">
+      <div class="modal-content" style="margin-top: 103px;
+      margin-left: 46px;">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+            <h4 class="modal-title" style="margin-left:148px;">Supprimer un client</h4>
+
+          <button type="button" class="btn-close" (click)="closePopUpDelete()" data-bs-dismiss="modal"></button>
+        </div>
+  
+        <!-- Modal body -->
+    
+<div class="container">
+        <div class="modal-body">					
+            <p>"Êtes-vous sûr(e) de vouloir supprimer ce client ?" </p>
+            <p class="text-warning"><small>Cette action ne peut pas être annulée.</small></p>
+        </div>
+        </div>
+        <div class="modal-footer">
+            <input type="button" class="btn btn-default"   (click)="closePopUpDelete()"data-dismiss="modal" value="Close">
+            <input type="submit" class="btn btn-danger" (click)="deleteclient()" value="Delete">
+        </div>
+    
+      </div>
+    </div>
+  </div>
+
+
+
+<!--pop up EDIT-->
+  
+
+<div class="modal fade" id="ModalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel" style="margin-left: 160px;">modifier un client</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+            
+          <div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="name" class="form-label">Nom Client</label>
+                  <input type="text"  #name name="name" [(ngModel)]="clientToUpdate.name" class="form-control" id="name">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="tel" class="form-label">N° téléphone</label>
+                  <input type="integer" #tel name="tel"  [(ngModel)]="clientToUpdate.tel" class="form-control" id="tel">
+                </div>
+              </div>
+            </div>
+            
+        </div>
+          <div class="mb-3">
+            <label for="mail" class="form-label">Email </label>
+            <input type="email" #mail name="mail"  [(ngModel)]="clientToUpdate.mail"  class="form-control" id="mail" >
+      
+          </div>
+          
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="adresse" class="form-label">Adresse</label>
+                <input type="text"  #adresse name="adresse" [(ngModel)]="clientToUpdate.adresse" class="form-control" id="adresse">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="codePostal" class="form-label">Code postal</label>
+                <input type="integer" #codePostal name="codePostal"  [(ngModel)]="clientToUpdate.codePostal" class="form-control" id="codePostal">
+              </div>
+            </div>
+          </div>
+          
+
+
+          <div class="mb-3">
+            <label for="ville" class="form-label">Ville</label>
+            <input type="text" #ville name="ville" class="form-control"  [(ngModel)]="clientToUpdate.ville" id="ville">
+          </div>
+          <div class="mb-3">
+            <select class="form-select" #region name="region" [(ngModel)]="clientToUpdate.region">
+        
+            <option value="" disabled selected>Sélectionnez une région</option>
+            <option value="Béja">Béja</option>
+            <option value="Ben_Arous">Ben Arous</option>
+            <option value="Bizerte">Bizerte</option>
+            <option value="Gabés">Gabés</option>
+            <option value="Gafsa">Gafsa</option>
+            <option value="Jendouba">Jendouba</option>
+            <option value="Kairaouan">Kairaouan</option>
+            <option value="Kasserine">Kasserine</option>
+            <option value="Kébili">Kébili</option>
+            <option value="kef">Le kef</option>
+            <option value="Mahdia">Mahdia</option>
+            <option value="manouba">La manouba</option>
+            <option value="Médenine">Médenine</option>
+            <option value="Monastir">Monastir</option>
+            <option value="Nabeul">Nabeul</option>
+            <option value="Sfax">Sfax</option>
+            <option value="Sidi_Bouzid">Sidi Bouzid</option>
+            <option value="Siliana">Siliana</option>
+            <option value="Sousse">Sousse</option>
+            <option value="Tataouine">Tataouine</option>
+            <option value="Tozeur">Tozeur</option>
+            <option value="Tunis">Tunis</option>
+            <option value="Zaghouan">Zaghouan</option>
+            <option value="Ariana">Ariana</option>
+          </select>
+          </div>
+        
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="updateclient()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+

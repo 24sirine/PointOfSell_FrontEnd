@@ -1,0 +1,58 @@
+
+div.invoice-header{
+    width: 94%;
+    margin-left: 72px;
+
+
+}
+
+.invoice-header {
+    margin: 0 -20px;
+    background: #f0f3f4;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+input{
+    height: 48px;
+ 
+    width: 19%;
+    margin-bottom: -10px;
+}
+label{
+    color: #335a7a;
+    font-weight: bold;
+    margin-right: 22px;
+}
+
+
+
+#lib{
+    margin-top: -57px;
+    margin-left: 265px;
+    margin-bottom: -1px;
+}
+
+div.card.border-primary.mb-3 {
+    height: 208px;
+    width: 208px;
+
+    max-width: 18rem;
+   
+    margin-left: 538px;
+
+}
+div.input-group.input-group-sm.col-sm-12{
+    height: 35px;
+    padding: 2px;
+    width: 403px;
+}
+button{
+   margin-right:1px;
+}
+button.btn.btn-lg.btn-secondary.col-sm-2,button.btn.btn-secondary.col-sm-3  , button.btn.btn-2.col-sm-3{
+--bs-btn-bg: #335aa3;}
+
+button.btn.btn-2.col-sm-5,button.btn.btn-1.col-sm-3,button.btn.btn-lg.btn-3.col-sm-5{
+--bs-btn-bg: #4a70b7;
+    --bs-btn-border-color: #4a70b7;}
